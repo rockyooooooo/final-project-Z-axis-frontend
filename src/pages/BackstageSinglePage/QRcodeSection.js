@@ -6,7 +6,6 @@ import styled from '@emotion/styled'
 import logo from '../../logo.svg'
 import SectionWrapper from './components/SectionWrapper'
 import Title from './components/Title'
-import { FRONTEND_BASE_URL } from '../../constants/baseURL'
 import scrollbarStyle from '../../styles/scrollbarStyle'
 
 const QRcodeWrapper = styled.div`
@@ -56,7 +55,7 @@ const CopyWrapper = styled.a`
 
 const QRcodeSection = () => {
   const { url: issueUrl } = useParams()
-  const URL = `${FRONTEND_BASE_URL}/issues/${issueUrl}`
+  const URL = `${window.location.host}/issues/${issueUrl}`
 
   const copyURLtoBoard = () => {
     navigator.clipboard.writeText(URL).then(

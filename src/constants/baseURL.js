@@ -1,3 +1,3 @@
-export const BACKEND_BASE_URL = 'http://localhost:5001'
-
-export const FRONTEND_BASE_URL = 'http://localhost:3000/#'
+export const BACKEND_BASE_URL = process.env.NODE_ENV === 'production'
+  ? process.env.SERVER_HOST
+  : 'http://localhost:5001'
