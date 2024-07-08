@@ -194,7 +194,7 @@ const Comment = ({
   userId,
   issueUserId,
   guestToken,
-  socket,
+  // socket,
   setComments,
   topCommentId,
   setTopCommentId,
@@ -305,7 +305,7 @@ const Comment = ({
       if (!data.ok) throw new Error(data.message)
 
       const { comment } = data
-      await socket.emit('updateComment', comment)
+      // await socket.emit('updateComment', comment)
       setComments((prev) =>
         prev.map((prevComment) =>
           prevComment.id === comment.id ? comment : prevComment
@@ -328,7 +328,7 @@ const Comment = ({
       const { data } = response
       if (!data.ok) throw new Error(data.message)
 
-      await socket.emit('deleteComment', { IssueId, commentId })
+      // await socket.emit('deleteComment', { IssueId, commentId })
       setComments((prev) => prev.filter((comment) => comment.id !== commentId))
     } catch (error) {
       console.log(error.message)
@@ -531,7 +531,7 @@ Comment.propTypes = {
   userId: PropTypes.number,
   issueUserId: PropTypes.number,
   guestToken: PropTypes.string,
-  socket: PropTypes.object,
+  // socket: PropTypes.object,
   setComments: PropTypes.func,
   topCommentId: PropTypes.number,
   setTopCommentId: PropTypes.func,

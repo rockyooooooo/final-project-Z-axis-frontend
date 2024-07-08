@@ -52,7 +52,11 @@ const CommentSubmitBtn = styled.button`
   cursor: pointer;
 `
 
-const AddCommentForm = ({ IssueId, socket, setComments }) => {
+const AddCommentForm = ({
+  IssueId,
+  // socket,
+  setComments
+}) => {
   const theme = useTheme()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
@@ -67,7 +71,7 @@ const AddCommentForm = ({ IssueId, socket, setComments }) => {
     )
     if (!data.ok) return console.log(data)
     const { comment } = data
-    await socket.emit('addComment', comment)
+    // await socket.emit('addComment', comment)
 
     setComments((prev) => [...prev, comment])
     setNickname('')
@@ -94,7 +98,7 @@ const AddCommentForm = ({ IssueId, socket, setComments }) => {
 AddCommentForm.propTypes = {
   IssueId: PropTypes.number,
   guestToken: PropTypes.string,
-  socket: PropTypes.object,
+  // socket: PropTypes.object,
   setComments: PropTypes.func
 }
 
