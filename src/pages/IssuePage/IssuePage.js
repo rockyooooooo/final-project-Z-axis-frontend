@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
-// import { io } from 'socket.io-client'
+import { io } from 'socket.io-client'
 import PropTypes from 'prop-types'
 
-// import { BACKEND_BASE_URL } from '../../constants/baseURL'
+import { BACKEND_BASE_URL } from '../../constants/baseURL'
 import flexJustifyAlign from '../../styles/flexJustifyAlign'
 import { ForestageIssueNavbar } from '../../components/Navbar/ForestageNavbar'
 import Menu from '../../components/Menu/Menu'
@@ -62,7 +62,7 @@ const RemindText = styled.div`
 `
 
 // dev server port
-// const socket = io.connect(BACKEND_BASE_URL)
+const socket = io.connect(BACKEND_BASE_URL)
 
 const IssuePage = ({ isBackstage }) => {
   const guestToken = useContext(GuestTokenContext)
@@ -94,22 +94,22 @@ const IssuePage = ({ isBackstage }) => {
   }, [trigger, filter])
 
   // socket listening events
-  // useEffect(() => {
-  //   socket.on('addComment', (comment) => {
-  //     setComments((prev) => [...prev, comment])
-  //   })
-  //   socket.on('updateComment', (updateComment) => {
-  //     console.log(updateComment)
-  //     setComments((prev) =>
-  //       prev.map((comment) =>
-  //         comment.id === updateComment.id ? updateComment : comment
-  //       )
-  //     )
-  //   })
-  //   socket.on('deleteComment', (id) => {
-  //     setComments((prev) => prev.filter((comment) => comment.id !== id))
-  //   })
-  // }, [socket])
+  useEffect(() => {
+    socket.on('addComment', (comment) => {
+      setComments((prev) => [...prev, comment])
+    })
+    socket.on('updateComment', (updateComment) => {
+      console.log(updateComment)
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === updateComment.id ? updateComment : comment
+        )
+      )
+    })
+    socket.on('deleteComment', (id) => {
+      setComments((prev) => prev.filter((comment) => comment.id !== id))
+    })
+  }, [socket])
 
   useEffect(() => {
     const doAsyncEffects = async () => {
@@ -128,7 +128,7 @@ const IssuePage = ({ isBackstage }) => {
       }
       setIssue(issueData)
       setTopCommentId(issueData.topCommentId)
-      // socket.emit('joinIssue', issueData.id)
+      socket.emit('joinIssue', issueData.id)
 
       let commentsData = []
       try {
@@ -194,7 +194,7 @@ const IssuePage = ({ isBackstage }) => {
               userId={userId}
               issueUserId={issue.UserId}
               guestToken={guestToken}
-              // socket={socket}
+              socket={socket}
               setComments={setComments}
               topCommentId={topCommentId}
               setTopCommentId={setTopCommentId}
@@ -212,7 +212,7 @@ const IssuePage = ({ isBackstage }) => {
               userId={userId}
               issueUserId={issue.UserId}
               guestToken={guestToken}
-              // socket={socket}
+              socket={socket}
               setComments={setComments}
               topCommentId={topCommentId}
               setTopCommentId={setTopCommentId}
@@ -224,7 +224,7 @@ const IssuePage = ({ isBackstage }) => {
         <AddCommentForm
           IssueId={issue.id}
           guestToken={guestToken}
-          // socket={socket}
+          socket={socket}
           setComments={setComments}
         />
       )}

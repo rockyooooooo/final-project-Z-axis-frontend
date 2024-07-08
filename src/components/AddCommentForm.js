@@ -54,7 +54,7 @@ const CommentSubmitBtn = styled.button`
 
 const AddCommentForm = ({
   IssueId,
-  // socket,
+  socket,
   setComments
 }) => {
   const theme = useTheme()
@@ -71,7 +71,7 @@ const AddCommentForm = ({
     )
     if (!data.ok) return console.log(data)
     const { comment } = data
-    // await socket.emit('addComment', comment)
+    await socket.emit('addComment', comment)
 
     setComments((prev) => [...prev, comment])
     setNickname('')
@@ -98,7 +98,7 @@ const AddCommentForm = ({
 AddCommentForm.propTypes = {
   IssueId: PropTypes.number,
   guestToken: PropTypes.string,
-  // socket: PropTypes.object,
+  socket: PropTypes.object,
   setComments: PropTypes.func
 }
 
