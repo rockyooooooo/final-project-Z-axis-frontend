@@ -6,11 +6,11 @@ COPY . .
 
 RUN yarn install
 RUN yarn build
-RUN yarn global add serve
+# RUN yarn global add serve
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "build"]
+CMD ["npx", "serve", "-s", "build"]
 
 # Keep the container running for debugging purposes
 # CMD ["tail", "-f", "/dev/null"]
