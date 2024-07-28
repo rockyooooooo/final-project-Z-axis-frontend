@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import QRcode from 'qrcode.react'
 import styled from '@emotion/styled'
 
@@ -54,9 +54,8 @@ const CopyWrapper = styled.a`
 `
 
 const QRcodeSection = () => {
-  // const { url: issueUrl } = useParams()
-  // const URL = `${window.location.host}/issues/${issueUrl}`
-  const URL = `${window.location.href.replace(/\/backstage/, '')}`
+  const { url: issueUrl } = useParams()
+  const URL = `${window.location.host}/issues/${issueUrl}`
 
   const copyURLtoBoard = () => {
     navigator.clipboard.writeText(URL).then(
