@@ -50,12 +50,12 @@ const OptionBtn = styled(Link)`
 const Text = styled.div`
   color: ${({ color }) => color};
 `
-const Option = ({ iconName, optionName, path }) => {
+const Option = ({ iconName, optionName, path, disabled }) => {
   const location = useLocation()
   const theme = useTheme()
   return (
     <>
-      <OptionBtn to={path}>
+      <OptionBtn to={path} disabled={disabled}>
         {iconName(
           '2x',
           location.pathname === path ? theme.primary : theme.secondary_300
@@ -65,7 +65,7 @@ const Option = ({ iconName, optionName, path }) => {
             location.pathname === path ? theme.primary : theme.secondary_000
           }
         >
-          {optionName}
+          {disabled ? '敬請期待' : optionName}
         </Text>
       </OptionBtn>
     </>
@@ -75,7 +75,8 @@ const Option = ({ iconName, optionName, path }) => {
 Option.propTypes = {
   iconName: PropTypes.func,
   optionName: PropTypes.string,
-  path: PropTypes.string
+  path: PropTypes.string,
+  disabled: PropTypes.bool
 }
 
 const BackstageMenuContent = () => {
@@ -94,6 +95,7 @@ const BackstageMenuContent = () => {
             iconName={option.iconName}
             optionName={option.optionName}
             path={option.path}
+            disabled={option.disabled}
           />
         ))}
       </OptionWrapper>
