@@ -10,6 +10,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@sentry/cli": "^2.36.6",
+    "@sentry/react": "^8.33.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -29,9 +31,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && yarn sentry:sourcemaps && yarn postbuild",
+    "postbuild": "node postbuild.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "serve -s build",
+    "build:serve": "yarn build && yarn serve",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org allen-9s --project javascript-react ./build && sentry-cli sourcemaps upload --org allen-9s --project javascript-react ./build"
   },
   "eslintConfig": {
     "extends": [

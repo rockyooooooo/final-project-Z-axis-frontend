@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import * as Sentry from '@sentry/react'
 
 import LoadingContext from '../../contexts/loadingContext'
 import { login } from '../../webapi/userApi'
@@ -44,6 +45,7 @@ const LoginPage = () => {
       userToken = data.token
       setIsLoading(false)
     } catch (error) {
+      Sentry.captureException(error)
       setErrorMessage(error.message)
       setIsLoading(false)
       return
